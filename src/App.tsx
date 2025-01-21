@@ -1,8 +1,7 @@
-function App() {
+import { Contacts } from './contacts/page';
 
-  return (
-    <>Empty project</>
-  )
+function App() {
+  return <Contacts />;
 }
 
-export default App
+export default App;
