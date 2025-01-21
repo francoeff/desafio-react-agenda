@@ -101,6 +101,12 @@
       "name": "Felipe",
       "description": "Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.",
       "photo": "https://images.pexels.com/photos/325682/pexels-photo-325682.jpeg?h=350&auto=compress&cs=tinysrgb"
+    },
+    {
+      "name": "Franco",
+      "description": "Es un excelente candidato",
+      "photo": "https://media.licdn.com/dms/image/v2/D4E03AQGm73QdMZjIWg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1682120329422?e=1743033600&v=beta&t=u2FGlNHo65O_VHsvGv9QFjmbKTF-bkILqF2JyunypqI",
+      "id": 19
     }
   ]
 }
