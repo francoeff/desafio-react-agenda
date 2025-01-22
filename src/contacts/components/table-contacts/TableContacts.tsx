@@ -2,21 +2,21 @@ import { Contact } from '@src/contacts/models';
 import { Avatar, Button, Table } from 'antd';
 import type { TableProps } from 'antd';
 import { DeleteOutlined, UserOutlined } from '@ant-design/icons';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
+import { ContactsContext } from '@src/contacts/context';
 
 interface Props {
-  data: Contact[] | null;
   onDelete: (id: number) => void;
   loading: boolean;
 }
 
-export const TableContacts = ({ data, onDelete, loading }: Props) => {
+export const TableContacts = ({ onDelete, loading }: Props) => {
+  const { contacts } = useContext(ContactsContext);
   const columns: TableProps<Contact>['columns'] = useMemo(
     () => [
       {
         title: 'Nombre',
         dataIndex: 'name',
-        key: 'name',
         render: (_, contact) => (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Avatar size='large' icon={<UserOutlined />} src={contact.photo} />
@@ -27,11 +27,9 @@ export const TableContacts = ({ data, onDelete, loading }: Props) => {
       {
         title: 'Descripción',
         dataIndex: 'description',
-        key: 'age',
       },
       {
         title: 'Acciones',
-        key: 'actions',
         render: (_, contact) => (
           <Button
             type='text'
@@ -47,8 +45,9 @@ export const TableContacts = ({ data, onDelete, loading }: Props) => {
   return (
     <Table<Contact>
       columns={columns}
-      dataSource={data ?? undefined}
+      dataSource={contacts ?? undefined}
       loading={loading}
+      rowKey={(contact) => contact.id}
     />
   );
 };
