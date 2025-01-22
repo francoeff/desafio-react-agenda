@@ -1,18 +1,21 @@
-import { ChangeEvent, useContext, useEffect } from 'react';
+import { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useFetch } from '@src/hooks/useFetch';
 import contactsService from '@src/contacts/services';
 import { Button, Typography, Input } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import style from './Contacts.module.css';
-import { TableContacts } from '../components/table-contacts/TableContacts';
+import { TableContacts } from '../components/table/TableContacts';
 import { searchInAttributes } from '@src/helpers/strings';
 import { ContactsContext } from '../context';
+import { ContactForm } from '../components/form/ContactForm';
 const { Title, Paragraph } = Typography;
 const { Search } = Input;
 
-export const Contacts = () => {
+export const ContactsPage = () => {
+  const [showForm, setShowForm] = useState(true);
   const { data, loading, fetchData } = useFetch(contactsService.getAll);
   const { setContacts } = useContext(ContactsContext);
+
   useEffect(() => {
     fetchData().then((data) => setContacts(data));
   }, [fetchData, setContacts]);
@@ -40,11 +43,13 @@ export const Contacts = () => {
         icon={<PlusOutlined />}
         type='primary'
         style={{ width: 'fit-content' }}
+        onClick={() => setShowForm(true)}
       >
         Agregar Contacto
       </Button>
       <Search placeholder='Buscar contacto' onChange={handleOnSearch} />
       <TableContacts onDelete={() => {}} loading={loading} />
+      <ContactForm open={showForm} onClose={() => setShowForm(false)} />
     </div>
   );
 };
