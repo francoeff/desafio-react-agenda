@@ -1,56 +1,65 @@
-## Previred Frontend Test - Agenda de contactos
+# Previred Frontend Test - Agenda de contactos
 
-### Introducción
-
-La siguiente prueba busca evaluar los conocimientos que hayas desarrollado en javascript/typescript, css y html, y su aplicación en un proyecto React.
-
-### Descripción e instalación
-
-Se adjunta un proyecto de nodejs, con una pequeña base de datos y una api ya desarrollada. Para ejecutar el proyecto, una vez descargado hay que correr las siguientes líneas por línea de comandos en el root del proyecto:
+## Execution of Project
 
 ```
 npm install
-node server.js
+npm start
 ```
 
-Los requisitos son únicamente tener instalado una versión de `node >= 4` y `npm`.
-Si todo funcionó correctamente, va a correr el servidor, y vas a poder acceder a través de cualquier navegador en la dirección: [localhost:9000](http://localhost:9000).
+## Structure of project
 
-### Desarrollo
+The project is an application builded in React with Typescript compiled on Vite. It follow the Scream Architecture like this:
 
-El objectivo del test es crear una aplicación React desde cero y desarrollar 2 vistas utilizando la api incluida en el proyecto.
+```
+src/
+  ├── public/ # archivos estáticos como imágenes
+  ├── contacts/ # this is the unique feature
+  ├── errors/ # layer for managing errors
+  ├── helpers/ # helpers using in the global project
+  ├── hooks/ # hooks using in the global project
+  ├── services/ # layer of services, it has an api function for centralized
+```
 
-La primera vista consiste en una lista paginada de usuarios con un buscador. Se debe visualizar la imagen del usuario con su respectivo nombre, y la descripción al lado, como se ve a continuación:
+## Commit convention
 
-![alt text](./contacts_index.png "Users list")
+This project follow a standard for commit messages based on [Angular Conventions](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines).
 
-La segunda vista consiste en el formulario para agregar un usuario. Se gatilla un drawer al presionar el botón de `Agregar Contacto` de la vista anterior. La única validación que debe hacer este formulario, es que verifique que se incluyen todos los campos. Una vez completado, al presionar el botón `Guardar` debe enviar la información por AJAX a la api para crear el usuario. La vista se muestra a continuación:
+Each commit message consists of a header, a body and a footer. The header has a special format that includes a type, a scope and a subject:
 
-![alt text](./new_contact.png "New Contact")
+```
+<type>(<scope>): <subject>
+<BLANK LINE>
+<body>
+<BLANK LINE>
+<footer>
+```
 
-### Descripción de la API
+The header is mandatory and the scope of the header is optional.
 
-El proyecto incluye la api y la base de datos de almacenamiento. La api es REST, y a continuación se especifican sus métodos:
+Any line of the commit message cannot be longer 100 characters! This allows the message to be easier to read on GitHub as well as in various git tools.
 
-| Método HTTP | Ruta           | Descripción                                                                                                                                                                                                            |
-| ----------- | :------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| GET         | /api/users     | Devuelve la lista de todos los usuarios. Para paginar necesita recibir adicionalmente los parámetros `_page` y `_limit` : `/api/users?_page=2&_limit=10`. Para buscar, necesita el parámetro `q`: `/api/users?q=texto` |
-| GET         | /api/users/:id | Devuelve únicamente el usuario especificado por el id                                                                                                                                                                  |
-| POST        | /api/users     | Crea un usuario nuevo. Debe incluir el header `Content-Type: application/json`, y los parámetros en formato JSON. Ej: `{"name": "Algún nombre","description": "Alguna descripción","photo": "Alguna URL"}`             |
-| DELETE      | /api/users/:id | Elimina el usuario correspondiente al id dado.                                                                                                                                                                         |
+### Samples:
 
-### Criterios de evaluación
+```
+docs(changelog): update changelog to beta.5
+```
 
-Se pide específicamente el uso de [React](https://facebook.github.io/react/). versión 17+. Dará un valor adicional, aunque no es obligatorio, el uso además de API-Context para la administración de estados en la aplicación. Adicionalmente se evaluarán los siguientes puntos:
+```
+fix(release): need to depend on latest rxjs and zone.js
+The version in our package.json gets copied to the one we publish, and users need the latest of these.
+```
 
-1. Utilización de patrones, buenas prácticas en el código y arquitectura acorde
-2. Documentación en el código
-3. Diseño lo más similar posible a las imágenes mostradas más arriba
-4. Tiempo en realizar la tarea
-5. Uso de custom Hooks
-6. Uso de Ant Design como librería de estilos
-7. Control de excepciones en las llamadas a los servicios (mensaje acorde al error)
+### Types
 
-### Plazos y envío
+Must be one of the following:
 
-Esta prueba considera un plazo máximo que podrás encontrar en el correo de contacto, y es además un criterio de evaluación, por lo que se espera una buen balance entre calidad y el tiempo usado. Una vez terminada la tarea, debes enviar un pull request al repositorio con tu nombre completo, correo y cargo al que postulas, además de notificar por correo que has finalizado la prueba. Cabe destacar, que todos los PRs serán rechazados una vez que se revisen, lo que no significa que tu proceso haya sido descartado, es sólo parte del procedimiento una vez que tu solución es revisada.
+- **build:** Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
+- **ci:** Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)
+- **docs:** Documentation only changes
+- **feat:** A new feature
+- **fix:** A bug fix
+- **perf:** A code change that improves performance
+- **refactor:** A code change that neither fixes a bug nor adds a feature
+- **style:** Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+- **test:** Adding missing tests or correcting existing tests
