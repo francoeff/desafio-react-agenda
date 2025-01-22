@@ -12,8 +12,11 @@ const { Title, Paragraph } = Typography;
 const { Search } = Input;
 
 export const ContactsPage = () => {
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const { data, loading, fetchData } = useFetch(contactsService.getAll);
+  const { loading: loadingDelete, fetchData: deleteContact } = useFetch(
+    contactsService.delete
+  );
   const { setContacts } = useContext(ContactsContext);
 
   useEffect(() => {
@@ -27,6 +30,13 @@ export const ContactsPage = () => {
         searchInAttributes(textToSearch, contact.name, contact.description)
       ) ?? [];
     setContacts(contactsFiltered);
+  };
+
+  const handleOnDelete = (id: number) => {
+    deleteContact(id).then(() => {
+      const contacts = data?.filter((contact) => contact.id !== id) ?? null;
+      fetchData().then(() => setContacts(contacts));
+    });
   };
 
   return (
@@ -48,7 +58,10 @@ export const ContactsPage = () => {
         Agregar Contacto
       </Button>
       <Search placeholder='Buscar contacto' onChange={handleOnSearch} />
-      <TableContacts onDelete={() => {}} loading={loading} />
+      <TableContacts
+        onDelete={handleOnDelete}
+        loading={loading || loadingDelete}
+      />
       <ContactForm open={showForm} onClose={() => setShowForm(false)} />
     </div>
   );

@@ -8,7 +8,11 @@ const createContactService = async (contact: Contact) =>
     body: JSON.stringify(contact),
   });
 
+const deleteContactService = async (id: number) =>
+  await api(`users/${id}`, { method: 'DELETE' });
+
 export default {
   getAll: getAllContactsService,
   create: createContactService,
+  delete: deleteContactService,
 };
