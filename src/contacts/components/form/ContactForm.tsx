@@ -20,6 +20,7 @@ export const ContactForm = ({ onClose, open }: Props) => {
     if (result) {
       setContacts([result, ...(contacts ?? [])]);
       onClose();
+      form.resetFields();
     }
   };
   return (
@@ -38,7 +39,13 @@ export const ContactForm = ({ onClose, open }: Props) => {
       }
       style={{ backgroundColor: '#fafafa' }}
     >
-      <Form form={form} layout='vertical' name='trigger' autoComplete='off'>
+      <Form
+        form={form}
+        layout='vertical'
+        name='trigger'
+        autoComplete='off'
+        clearOnDestroy
+      >
         <Form.Item
           name='photo'
           hasFeedback

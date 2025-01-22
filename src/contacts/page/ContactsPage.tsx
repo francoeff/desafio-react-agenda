@@ -3,6 +3,7 @@ import { useFetch } from '@src/hooks/useFetch';
 import contactsService from '@src/contacts/services';
 import { Button, Typography, Input } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import style from './Contacts.module.css';
 import { TableContacts } from '../components/table/TableContacts';
 import { searchInAttributes } from '@src/helpers/strings';
@@ -18,6 +19,7 @@ export const ContactsPage = () => {
     contactsService.delete
   );
   const { setContacts } = useContext(ContactsContext);
+  const screens = useBreakpoint();
 
   useEffect(() => {
     fetchData().then((data) => setContacts(data));
@@ -41,7 +43,7 @@ export const ContactsPage = () => {
 
   return (
     <div className={style.container}>
-      <Title style={{ fontSize: '2rem', margin: 0 }}>
+      <Title style={{ fontSize: screens.xs ? '1.5rem' : '2rem', margin: 0 }}>
         Agenda Previred - Mi agenda de contactos laboral
         <Paragraph style={{ fontWeight: 'normal', margin: '.5rem 0 0 0' }}>
           Aquí podrá encontrar o buscar a todos sus contactos agregados, agregar

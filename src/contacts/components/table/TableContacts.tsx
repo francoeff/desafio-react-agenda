@@ -2,6 +2,7 @@ import { Contact } from '@src/contacts/models';
 import { Avatar, Button, Table } from 'antd';
 import type { TableProps } from 'antd';
 import { DeleteOutlined, UserOutlined } from '@ant-design/icons';
+import useBreakpoint from 'antd/lib/grid/hooks/useBreakpoint';
 import { useContext, useMemo } from 'react';
 import { ContactsContext } from '@src/contacts/context';
 
@@ -12,6 +13,7 @@ interface Props {
 
 export const TableContacts = ({ onDelete, loading }: Props) => {
   const { contacts } = useContext(ContactsContext);
+  const screens = useBreakpoint();
   const columns: TableProps<Contact>['columns'] = useMemo(
     () => [
       {
@@ -27,6 +29,8 @@ export const TableContacts = ({ onDelete, loading }: Props) => {
       {
         title: 'Descripción',
         dataIndex: 'description',
+        ellipsis: !screens.md ? true : false,
+        responsive: ['sm'],
       },
       {
         title: 'Acciones',
@@ -40,7 +44,7 @@ export const TableContacts = ({ onDelete, loading }: Props) => {
         ),
       },
     ],
-    [onDelete]
+    [onDelete, screens.md]
   );
   return (
     <Table<Contact>
@@ -48,6 +52,7 @@ export const TableContacts = ({ onDelete, loading }: Props) => {
       dataSource={contacts ?? undefined}
       loading={loading}
       rowKey={(contact) => contact.id}
+      scroll={{ y: 450 }}
     />
   );
 };
